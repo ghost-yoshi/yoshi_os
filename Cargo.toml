@@ -1,0 +1,31 @@
+[package]
+name = "yoshi_os"
+version = "0.1.0"
+edition = "2024"
+
+[profile.dev]
+# panic = "abort" : en cas de panique, on arrête directement plutôt que de
+# "dérouler la pile" (unwind) - le unwinding demande des mécanismes que
+# notre kernel freestanding ne fournit pas.
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+# volatile : empêche le compilateur d'optimiser/supprimer les écritures
+# dans le VGA buffer. Version figée à 0.2.6 : les versions plus récentes
+# ont une API différente, incompatible avec le code de l'article.
+volatile = "0.2.6"
+
+bootloader = "0.9.8"
+
+# spin : fournit un Mutex "spinlock", utilisable sans OS (contrairement à
+# std::sync::Mutex qui a besoin de threads gérés par un OS).
+spin = "0.5.2"
+
+[dependencies.lazy_static]
+version = "1.0"
+# spin_no_std : variante de lazy_static qui n'a pas besoin de la
+# bibliothèque standard (cohérent avec notre #![no_std]).
+features = ["spin_no_std"]
