@@ -10,7 +10,7 @@ edition = "2024"
 panic = "abort"
 
 [profile.release]
-panic = "abort"
+#panic = "abort"
 
 [dependencies]
 # volatile : empêche le compilateur d'optimiser/supprimer les écritures
@@ -24,8 +24,19 @@ bootloader = "0.9.8"
 # std::sync::Mutex qui a besoin de threads gérés par un OS).
 spin = "0.5.2"
 
+x86_64 = "0.15"
+
+uart_16550 = "0.6.0"
+
 [dependencies.lazy_static]
 version = "1.0"
 # spin_no_std : variante de lazy_static qui n'a pas besoin de la
 # bibliothèque standard (cohérent avec notre #![no_std]).
 features = ["spin_no_std"]
+
+[package.metadata.bootimage]
+test-args = [
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04",
+    "-serial", "stdio",
+]
+test-success-exit-code = 33
