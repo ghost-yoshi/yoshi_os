@@ -5,7 +5,7 @@
 #![no_std]
 #![no_main]
 use core::panic::PanicInfo;
-use yoshi_os::{println};
+use yoshi_os::{println, interrupt};
 
 /*
 utilities 
@@ -26,6 +26,11 @@ pub extern "C" fn _start() -> ! {
 
     let special_char: &str = ":!";
     println!("Yosh Os :) {}", special_char);
+    yoshi_os::init();
+
+    x86_64::instructions::interrupts::int3();// crash voulu
+
+    println!("still alive bruuh !");
     #[cfg(test)]
     test_main();
     loop {}
