@@ -29,25 +29,9 @@ pub extern "C" fn _start() -> ! {
     println!("Yosh Os :) {}", special_char);
     yoshi_os::init();
 
-    unsafe {
-        *(0xdeadbeef as *mut u8) = 42
-    }
-
     x86_64::instructions::interrupts::int3();// crash voulu
 
     println!("still alive bruuh !");
-
-
-    /*
-    stack overflow
-    */
-
-    fn stack_overflow() {
-            stack_overflow(); // for each recursion, the return address is pushed
-        }
-
-        // trigger a stack overflow
-        stack_overflow();
 
         #[cfg(test)]
         test_main();

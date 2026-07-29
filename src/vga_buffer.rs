@@ -149,11 +149,13 @@ lazy_static! {
         // brute 0xb8000 en référence &'static mut Buffer. Après cette
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
-}
 
-// ------------------------------------------------------------
-// Macros print! et println!
-// ------------------------------------------------------------
+}
+    
+    
+/*
+Macros print! et println!
+*/
 
 
 #[macro_export]

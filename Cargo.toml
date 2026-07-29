@@ -40,3 +40,6 @@ test-args = [
     "-serial", "stdio",
 ]
 test-success-exit-code = 33
+[[test]]
+name = "stack_overflow"
+harness = false
