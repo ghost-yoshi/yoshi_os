@@ -19,7 +19,7 @@ pub trait Testable {
 
 /*
 Actually main
- */
+*/
 
 #[unsafe(no_mangle)]
 
@@ -50,7 +50,7 @@ fn panic(info: &PanicInfo) -> ! {
 
 }
 
-// our panic handler in test mode
+//
 #[cfg(test)]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {

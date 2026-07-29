@@ -1,4 +1,4 @@
-use x86_64::instructions;
+
 use x86_64::{VirtAddr, structures::gdt::SegmentSelector};
 use x86_64::structures::tss::TaskStateSegment;
 use lazy_static::lazy_static;
