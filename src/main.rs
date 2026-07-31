@@ -29,7 +29,7 @@ pub extern "C" fn _start() -> ! {
     println!("Yosh Os :) {}", special_char);
     yoshi_os::init();
 
-    x86_64::instructions::interrupts::int3();// crash voulu
+    //x86_64::instructions::interrupts::int3();// crash voulu
 
     println!("still alive bruuh !");
 

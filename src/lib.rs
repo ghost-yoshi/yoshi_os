@@ -10,7 +10,7 @@ pub mod serial;
 pub mod vga_buffer;
 pub mod interrupt;
 pub mod gdt;
-
+pub mod time;
 
 
 use core::panic::PanicInfo;

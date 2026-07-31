@@ -4,9 +4,9 @@ use spin::Mutex;
 
 use volatile::Volatile;
 
-// ------------------------------------------------------------
-// Couleurs
-// ------------------------------------------------------------
+/*
+Couleurs
+*/
 
 #[allow(dead_code)]
 
@@ -44,9 +44,9 @@ impl ColorCode {
     }
 }
 
-// ------------------------------------------------------------
-// Tampon de texte
-// ------------------------------------------------------------
+/*
+Tampon de texte
+*/
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 
@@ -64,9 +64,9 @@ struct Buffer {
     chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
-// ------------------------------------------------------------
-// Writer
-// ------------------------------------------------------------
+/*
+Writer
+*/
 
 pub struct Writer {
     column_position: usize,
@@ -138,10 +138,11 @@ impl fmt::Write for Writer {
     }
 }
 
-// ------------------------------------------------------------
-// Interface globale (WRITER statique)
-// ------------------------------------------------------------
 
+
+/*  
+Interface globale (WRITER statique) 
+*/
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
@@ -173,7 +174,10 @@ macro_rules! println {
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
     use core::fmt::Write;
-    WRITER.lock().write_fmt(args).unwrap();
+    use x86_64::instructions::interrupts;
+    interrupts::without_interrupts(||{
+        WRITER.lock().write_fmt(args).unwrap();
+    })
 }
 
 /*

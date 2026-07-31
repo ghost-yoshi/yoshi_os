@@ -1,7 +1,7 @@
 
 use x86_64::structures::{idt::{InterruptDescriptorTable, InterruptStackFrame}};
 use lazy_static::lazy_static;
-use crate::{print, println};
+use crate::{print, println, serial_println};
 use crate::gdt;
 use pic8259::ChainedPics;
 use spin;
@@ -39,7 +39,7 @@ extern "x86-interrupt" fn double_fault_handler(stack_frame: InterruptStackFrame,
 
 extern  "x86-interrupt" fn timer_interrupt_handler(
     _stack_frame: InterruptStackFrame) {
-        print!(".");
+        crate::time::tick();
 
          unsafe {
         PICS.lock()
