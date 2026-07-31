@@ -32,6 +32,7 @@ pub extern "C" fn _start() -> ! {
     //x86_64::instructions::interrupts::int3();// crash voulu
 
     println!("still alive bruuh !");
+    yoshi_os::hlt_loop();
 
         #[cfg(test)]
         test_main();
@@ -46,7 +47,7 @@ Testing Implementations goes here
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    yoshi_os::hlt_loop();
 
 }
 
